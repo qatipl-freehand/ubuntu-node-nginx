@@ -72,10 +72,7 @@ node(nodeLabel) {
            },
     );
     stage('multi-arch-manifest') {
-        sh '''
-          aws ecr get-login-password --region ap-south-1 | \
-          docker login --username AWS --password-stdin 476114124602.dkr.ecr.ap-south-1.amazonaws.com
-        '''
+       sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 476114124602.dkr.ecr.ap-south-1.amazonaws.com"
         sh "docker buildx imagetools create -t 476114124602.dkr.ecr.ap-south-1.amazonaws.com/fruitstand-base-image:${dockerImageNumber} 476114124602.dkr.ecr.ap-south-1.amazonaws.com/fruitstand-base-image:${armDockerImageNumber} 476114124602.dkr.ecr.ap-south-1.amazonaws.com/fruitstand-base-image:${amdDockerImageNumber}"
     }
     stage('summary') {
